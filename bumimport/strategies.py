@@ -25,7 +25,7 @@ def flat_import(module: str | ModuleType, path: str | os.PathLike) -> None:
     elif not isinstance(path, os.PathLike):
         raise TypeError(f"Invalid path type: {type(path)}")
 
-    sys_path = sys.path
+    sys_path = sys.path.copy()
 
     for root, dirs, _ in os.walk(path):
         for d in dirs:
