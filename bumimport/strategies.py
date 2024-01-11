@@ -33,6 +33,8 @@ def flat_import(module: str | ModuleType, path: str | os.PathLike) -> None:
             sys.path.insert(0, d)
             for f in fnmatch.filter(os.listdir(d), "*.py"):
                 f = os.path.splitext(f)[0]
+                if hasattr(module, f):
+                    raise ImportError(f"Multiple modules named: {f}")
                 setattr(module, f, importlib.import_module(f))
 
     sys.path = sys_path
