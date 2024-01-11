@@ -25,11 +25,14 @@ def flat_import(module: str | ModuleType, path: str | os.PathLike) -> None:
     elif not isinstance(path, os.PathLike):
         raise TypeError(f"Invalid path type: {type(path)}")
 
+    sys_path = sys.path
+
     for root, dirs, _ in os.walk(path):
         for d in dirs:
             d = os.path.join(root, d)
-            sys.path.append(d)
+            sys.path.insert(0, d)
             for f in fnmatch.filter(os.listdir(d), "*.py"):
                 f = os.path.splitext(f)[0]
                 setattr(module, f, importlib.import_module(f))
-            sys.path.remove(d)
+
+    sys.path = sys_path
