@@ -5,7 +5,7 @@ import sys
 
 from bumimport import flat_import
 
-FIXTURES = os.path.dirname(os.path.realpath(__file__))
+FIXTURES = os.path.join(os.path.dirname(os.path.realpath(__file__)), "fixtures")
 sys.path.append(FIXTURES)
 
 def test_module_bad_value() -> None:
