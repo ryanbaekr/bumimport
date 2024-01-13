@@ -10,6 +10,8 @@ sys.path.insert(0, _DIR)
 
 import package  # pylint: disable=wrong-import-position
 
-package.module1.func1()  # pylint: disable=no-member
+mod1 = getattr(package, "module1")
+mod1.func1()  # pylint: disable=no-member
 
-package.module2.func2()  # pylint: disable=no-member
+mod2 = getattr(package, "module2")
+mod2.func2()  # pylint: disable=no-member
