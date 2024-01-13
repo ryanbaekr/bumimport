@@ -1,7 +1,6 @@
 """Implementations of import strategies"""
 
-import fnmatch
-import importlib
+import importlib.util
 import os
 import sys
 from types import ModuleType
@@ -25,16 +24,13 @@ def flat_import(module: str | ModuleType, path: str | os.PathLike) -> None:
     elif not isinstance(path, os.PathLike):
         raise TypeError(f"Invalid path type: {type(path)}")
 
-    sys_path = sys.path.copy()
-
-    for root, dirs, _ in os.walk(path):
-        for d in dirs:
-            d = os.path.join(root, d)
-            sys.path.insert(0, d)
-            for f in fnmatch.filter(os.listdir(d), "*.py"):
-                f = os.path.splitext(f)[0]
-                if hasattr(module, f):
-                    raise ImportError(f"Multiple modules named: {f}")
-                setattr(module, f, importlib.import_module(f))
-
-    sys.path = sys_path
+    for root, _, files in os.walk(path):
+        for f in files:
+            f_root, f_ext = os.path.splitext(f)
+            if f_ext == ".py" and f_root != "__init__":
+                if hasattr(module, f_root):
+                    raise ImportError(f"Multiple modules named: {f_root}")
+                spec = importlib.util.spec_from_file_location(f_root, os.path.join(root, f))
+                mod = importlib.util.module_from_spec(spec)
+                spec.loader.exec_module(mod)
+                setattr(module, f_root, mod)
