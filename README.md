@@ -1,4 +1,5 @@
 # bumimport
+[![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](http://www.gnu.org/licenses/gpl-3.0)
 
 So you're about to append to `sys.path` in order to import something when a `Neckbeard` on Stack Overflow tells you it's "bad practice"...
 
@@ -123,3 +124,8 @@ Now you can access the modules in `bucket_o_modules/` as if it was a flattened p
 
 ----
 `bumimport` is safer because it never modifies `sys.path` which means there is no risk of modules getting masked. It also prevents any module with the same name as an existing attribute from being added which means there's no confusion over which module you end up having access to. Lastly, the imported modules are never added to `sys.modules` which means there will never be conflicts with the standard library.
+
+## Installation
+- With pip:
+
+        pip install bumimport
