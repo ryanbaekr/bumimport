@@ -2,7 +2,7 @@
 
 import os
 
-def func2():
+def func2() -> str:
     """Return sep from the os stdlib"""
 
     return os.sep

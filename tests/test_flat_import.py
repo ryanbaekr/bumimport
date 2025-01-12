@@ -6,7 +6,6 @@ import sys
 from bumimport import flat_import
 
 FIXTURES = os.path.join(os.path.dirname(os.path.realpath(__file__)), "fixtures")
-sys.path.append(FIXTURES)
 
 def test_module_bad_value() -> None:
     """Test flat_import with a string that is not the name of a module"""
@@ -28,7 +27,7 @@ def test_package_w_module_w_stdlib_name() -> None:
 
     os_sep = os.sep
 
-    import package_w_module_w_stdlib_name  # pylint: disable=import-outside-toplevel,import-error
+    from .fixtures import package_w_module_w_stdlib_name  # pylint: disable=import-outside-toplevel,import-error
 
     mod1 = getattr(package_w_module_w_stdlib_name, "os")
     assert mod1.func1() == "foo"
@@ -42,7 +41,7 @@ def test_package_w_module_w_stdlib_name() -> None:
 def test_package_w_module_w_dot_in_name() -> None:
     """Test flat_import with a package with a module with a dot in its name"""
 
-    import package_w_module_w_dot_in_name  # pylint: disable=import-outside-toplevel,import-error
+    from .fixtures import package_w_module_w_dot_in_name  # pylint: disable=import-outside-toplevel,import-error
 
     mod1 = getattr(package_w_module_w_dot_in_name, "mod.ule1")
     assert mod1.func1() == "foo"
@@ -54,7 +53,7 @@ def test_package_w_module_w_dot_in_name() -> None:
 def test_package_w_module_w_dash_in_name() -> None:
     """Test flat_import with a package with a module with a dash in its name"""
 
-    import package_w_module_w_dash_in_name  # pylint: disable=import-outside-toplevel,import-error
+    from .fixtures import package_w_module_w_dash_in_name  # pylint: disable=import-outside-toplevel,import-error
 
     mod1 = getattr(package_w_module_w_dash_in_name, "mod-ule1")
     assert mod1.func1() == "foo"
@@ -67,8 +66,7 @@ def test_package_w_duplicate_module_names() -> None:
     """Test flat_import with a package with multiple modules with the same name"""
 
     try:
-        import package_w_duplicate_module_names  # pylint: disable=import-outside-toplevel,import-error
-        message = package_w_duplicate_module_names.module1.func1()
+        from .fixtures import package_w_duplicate_module_names  # pylint: disable=import-outside-toplevel,import-error
     except Exception as e:  # pylint: disable=broad-exception-caught
         message = str(e)
 
