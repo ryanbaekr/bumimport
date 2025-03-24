@@ -1,11 +1,11 @@
 """Testing for flat_import"""
 
 import os
-import sys
 
 from bumimport import flat_import
 
 FIXTURES = os.path.join(os.path.dirname(os.path.realpath(__file__)), "fixtures")
+
 
 def test_module_bad_value() -> None:
     """Test flat_import with a string that is not the name of a module"""
@@ -16,7 +16,7 @@ def test_module_bad_value() -> None:
     try:
         flat_import(module, path)
         message = ""
-    except Exception as e:  # pylint: disable=broad-exception-caught
+    except Exception as e:
         message = str(e)
 
     assert message == f"No module named: {module}"
@@ -27,7 +27,7 @@ def test_package_w_module_w_stdlib_name() -> None:
 
     os_sep = os.sep
 
-    from .fixtures import package_w_module_w_stdlib_name  # pylint: disable=import-outside-toplevel,import-error
+    from .fixtures import package_w_module_w_stdlib_name  # noqa: PLC0415
 
     mod1 = getattr(package_w_module_w_stdlib_name, "os")
     assert mod1.func1() == "foo"
@@ -41,7 +41,7 @@ def test_package_w_module_w_stdlib_name() -> None:
 def test_package_w_module_w_dot_in_name() -> None:
     """Test flat_import with a package with a module with a dot in its name"""
 
-    from .fixtures import package_w_module_w_dot_in_name  # pylint: disable=import-outside-toplevel,import-error
+    from .fixtures import package_w_module_w_dot_in_name  # noqa: PLC0415
 
     mod1 = getattr(package_w_module_w_dot_in_name, "mod.ule1")
     assert mod1.func1() == "foo"
@@ -53,7 +53,7 @@ def test_package_w_module_w_dot_in_name() -> None:
 def test_package_w_module_w_dash_in_name() -> None:
     """Test flat_import with a package with a module with a dash in its name"""
 
-    from .fixtures import package_w_module_w_dash_in_name  # pylint: disable=import-outside-toplevel,import-error
+    from .fixtures import package_w_module_w_dash_in_name  # noqa: PLC0415
 
     mod1 = getattr(package_w_module_w_dash_in_name, "mod-ule1")
     assert mod1.func1() == "foo"
@@ -66,8 +66,8 @@ def test_package_w_duplicate_module_names() -> None:
     """Test flat_import with a package with multiple modules with the same name"""
 
     try:
-        from .fixtures import package_w_duplicate_module_names  # pylint: disable=import-outside-toplevel,import-error
-    except Exception as e:  # pylint: disable=broad-exception-caught
+        from .fixtures import package_w_duplicate_module_names  # noqa: PLC0415, F401
+    except Exception as e:
         message = str(e)
 
     assert message == "Multiple modules named: module1"

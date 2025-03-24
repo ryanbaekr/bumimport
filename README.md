@@ -65,7 +65,7 @@ bumimport.flat_import(__name__, "/path/to/bucket_o_modules/")
 mod = getattr(sys.modules[__name__], "module1")
 ```
 
-`flat_import` adds all the modules within `bucket_o_modules/` to the module `__name__` (the current module) as attribues. Those attributes can then be accessed with `getattr()`.
+`flat_import` adds all the modules within `bucket_o_modules/` to the module `__name__` (the current module) as attributes. Those attributes can then be accessed with `getattr()`.
 
 Likewise, instead of using the following code to import any module from `bucket_o_modules/` or any of its subdirectories:
 

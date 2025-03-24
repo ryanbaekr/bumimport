@@ -6,6 +6,7 @@ from pathlib import Path
 import sys
 from types import ModuleType
 
+
 def flat_import(module: str | ModuleType, path: str | Path) -> None:
     """Recursively import all modules in a path to the provided module"""
 

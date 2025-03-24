@@ -8,10 +8,10 @@ _DIR = os.path.normpath(os.path.join(_DIR, ".."))
 
 sys.path.insert(0, _DIR)
 
-import package  # pylint: disable=wrong-import-position
+import package  # noqa: E402
 
 mod1 = getattr(package, "module1")
-mod1.func1()  # pylint: disable=no-member
+mod1.func1()
 
 mod2 = getattr(package, "module2")
-mod2.func2()  # pylint: disable=no-member
+mod2.func2()
