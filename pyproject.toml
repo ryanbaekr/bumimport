@@ -1,6 +1,6 @@
 [project]
 name = "bumimport"
-version = "1.0.0"
+version = "1.0.1"
 description = "A Python package for various lazy (discouraged) import strategies."
 readme = "README.md"
 license = "GPL-3.0-only"
