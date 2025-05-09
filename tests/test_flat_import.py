@@ -71,3 +71,12 @@ def test_package_w_duplicate_module_names() -> None:
         message = str(e)
 
     assert message == "Multiple modules named: module1"
+
+
+def test_package_w_ignore_pattern() -> None:
+    """Test flat_import with an ignore pattern that matches some modules in the directory"""
+
+    from .fixtures import package_w_ignore_pattern  # noqa: PLC0415
+
+    assert hasattr(package_w_ignore_pattern, "module1")
+    assert not hasattr(package_w_ignore_pattern, "module2")
