@@ -1,12 +1,14 @@
 name: CD
 run-name: Deploying ${{ github.sha }}
 on:
-  workflow_run:
-    workflows: "CI"
+  pull_request:
     types:
-      - completed
+      - closed
+    branches:
+      - main
 jobs:
   Deploy-PyPI:
+    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     permissions:
       id-token: write
